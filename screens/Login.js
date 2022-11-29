@@ -1,6 +1,26 @@
-import { Button, StyleSheet, TextInput, View } from 'react-native'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import {auth} from "../firebaseConfig"
+import { useState } from 'react'
+import { Alert, Button, StyleSheet, TextInput, Vibration, View } from 'react-native'
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+    const login = () => {
+        if (!email || !senha) {
+            Vibration. vibrate();
+            Alert.alert("Atenção", "você deve preencher todos os campos");
+            return;
+        }
+
+
+        signInWithEmailAndPassword(auth, email, senha).then( ()=>{
+            console.log("logadasso");
+        } ).catch( (error)=> {
+            console.log(error);
+        });
+    }
 
     return (
         <View style={estilos.container}>
@@ -8,13 +28,17 @@ const Login = () => {
                 <TextInput
                     placeholder='E-mail'
                     style={estilos.input}
+                    keyboardType="email-address"
+                    onChangeText={valor=>setEmail(valor)}
                 />
                 <TextInput
                     placeholder='Senha'
                     style={estilos.input}
+                    secureTextEntry
+                    onChangeText={valor=>setSenha(valor)}
                 />
                 <View style={estilos.botoes}>
-                    <Button title='Entre' color="green" />
+                    <Button title='Entre' onPress={login} color="green" />
                 </View>
             </View>
         </View>
