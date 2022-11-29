@@ -3,17 +3,16 @@ import {auth} from "../firebaseConfig"
 import { useState } from 'react'
 import { Alert, Button, StyleSheet, TextInput, Vibration, View } from 'react-native'
 
-const Login = () => {
+const Login = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    const login = ({navigation}) => {
+    const login = () => {
         if (!email || !senha) {
             Vibration. vibrate();
             Alert.alert("Atenção", "você deve preencher todos os campos");
             return;
         }
-
 
         signInWithEmailAndPassword(auth, email, senha).then( ()=>{
             navigation.navigate("AreaLogada")
