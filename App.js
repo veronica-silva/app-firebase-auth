@@ -2,6 +2,8 @@ import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import {app} from "./firebaseConfig"
+
 import Inicial from './screens/Inicial';
 import Cadastro from './screens/Cadastro';
 import Login from './screens/Login';
@@ -10,6 +12,7 @@ import AreaLogada from './screens/AreaLogada';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  console.log(app);
 
   return (
     <SafeAreaView style={estilos.containerSafe}>
