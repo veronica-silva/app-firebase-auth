@@ -7,7 +7,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    const login = () => {
+    const login = ({navigation}) => {
         if (!email || !senha) {
             Vibration. vibrate();
             Alert.alert("Atenção", "você deve preencher todos os campos");
@@ -16,7 +16,7 @@ const Login = () => {
 
 
         signInWithEmailAndPassword(auth, email, senha).then( ()=>{
-            console.log("logadasso");
+            navigation.navigate("AreaLogada")
         } ).catch( (error)=> {
             console.log(error);
         });
