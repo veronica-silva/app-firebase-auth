@@ -7,7 +7,7 @@ const AreaLogada = ({navigation}) => {
 
     const logout = ()=>{
         signOut(auth).then( ()=>{
-            navigation.navigate("Inicial")
+            navigation.replace("Inicial")
         })
     }
 
