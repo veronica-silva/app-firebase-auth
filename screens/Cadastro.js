@@ -1,9 +1,20 @@
 import { useState } from 'react'
-import { Button, StyleSheet, TextInput, View } from 'react-native'
+import { Alert, Button, StyleSheet, TextInput, View } from 'react-native'
+import {auth} from "../firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Cadastro = () => {
 
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+    const cadastrar = () =>{
+        if (!email || !senha) {
+            Alert.alert("Atenção", "preencha todos os campos")
+        }
+        createUserWithEmailAndPassword(auth, email, senha)
+        Alert.alert ("cadastradíssima", "welcome, bitch!")
+    };
 
     return (
         <View style={estilos.container}>
@@ -18,7 +29,7 @@ const Cadastro = () => {
                     placeholder='Senha'
                     style={estilos.input}
                     secureTextEntry
-                    onChangeText={}
+                    onChangeText={valor => setSenha(valor)}
                 />
                 <View style={estilos.botoes}>
                     <Button onPress={cadastrar} title='Cadastre-se' color="blue" />
