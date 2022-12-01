@@ -2,18 +2,62 @@ import { useState } from 'react'
 import { Alert, Button, StyleSheet, TextInput, View } from 'react-native'
 import {auth} from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import {AreaLogada} from "./AreaLogada"
 
-const Cadastro = () => {
+const Cadastro = ({navigation}) => {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
+    const logada = () => {
+        navigation.replace("AreaLogada")
+    }
+    const logar = () => {
+        navigation.replace("Inicial")
+    }
+
     const cadastrar = () =>{
         if (!email || !senha) {
-            Alert.alert("Atenção", "preencha todos os campos")
+            Alert.alert("Se liga, hein!", "preencha todos os campos, animal")
         }
-        createUserWithEmailAndPassword(auth, email, senha)
-        Alert.alert ("cadastradíssima", "welcome, bitch!")
+        createUserWithEmailAndPassword(auth, email, senha).then( () =>{
+            Alert.alert ("cadastradíssima", 
+            "Vai entrar ou não?",
+
+            [
+                {
+                  text: "não quero agora",
+                  onPress: (logar),
+                  style: "cancel"
+                },
+                { text: "entra nessa merda",
+                 onPress: (logada),
+                 style: "default"
+                
+                }
+              ]
+            
+            )
+        }).catch((error) => {
+            console.log(error);
+            let mensagem
+            switch (error.code) {
+                case "auth/email-already-in-use":
+                    mensagem = "Email em uso"
+                    break;
+            
+                case "auth/weak-password":
+                mensagem = "senha deve ter pelo menos 6 dígitos"
+                break;
+                case "auth/invalid-email":
+                mensagem = "email inválido"
+                break;
+                default:
+                    mensagem = "algo deu errado, tente novamente"
+                    break;
+            }
+            Alert.alert("Atenção", mensagem)
+        });
     };
 
     return (

@@ -1,7 +1,7 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
 import { signOut } from 'firebase/auth';
 import {auth} from "../firebaseConfig"
-import { useState } from 'react'
+
 
 const AreaLogada = ({navigation}) => {
 
