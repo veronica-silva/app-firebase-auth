@@ -1,6 +1,9 @@
+import { useState } from 'react'
 import { Button, StyleSheet, TextInput, View } from 'react-native'
 
 const Cadastro = () => {
+
+    const [email, setEmail] = useState("")
 
     return (
         <View style={estilos.container}>
@@ -8,13 +11,17 @@ const Cadastro = () => {
                 <TextInput
                     placeholder='E-mail'
                     style={estilos.input}
+                    keyboardType="email-address"
+                    onChangeText={valor => setEmail(valor)}
                 />
                 <TextInput
                     placeholder='Senha'
                     style={estilos.input}
+                    secureTextEntry
+                    onChangeText={}
                 />
                 <View style={estilos.botoes}>
-                    <Button title='Cadastre-se' color="blue" />
+                    <Button onPress={cadastrar} title='Cadastre-se' color="blue" />
                 </View>
 
             </View>
