@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Alert, Button, StyleSheet, TextInput, View } from 'react-native'
+import { Alert, Button, StyleSheet, TextInput, View, ActivityIndicator } from 'react-native'
 import {auth} from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {AreaLogada} from "./AreaLogada"
@@ -8,6 +8,7 @@ const Cadastro = ({navigation}) => {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    
 
     const logada = () => {
         navigation.replace("AreaLogada")
@@ -15,6 +16,8 @@ const Cadastro = ({navigation}) => {
     const logar = () => {
         navigation.replace("Inicial")
     }
+
+
 
     const cadastrar = () =>{
         if (!email || !senha) {

@@ -1,13 +1,15 @@
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import {auth} from "../firebaseConfig"
 import { useState } from 'react'
-import { Alert, Button, StyleSheet, TextInput, Vibration, View } from 'react-native'
+import { ActivityIndicator, Alert, Button, StyleSheet, TextInput, Vibration, View } from 'react-native'
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const login = () => {
+        setLoading(true)
         if (!email || !senha) {
             Vibration. vibrate();
             Alert.alert("Atenção", "você deve preencher todos os campos");
@@ -31,6 +33,8 @@ const Login = ({navigation}) => {
                     break;
             }
             Alert.alert("ops", mensagem)
+        }) .finally (() => {
+            setLoading(true)
         });
     };
 
@@ -56,10 +60,14 @@ const Login = ({navigation}) => {
                     onChangeText={valor=>setSenha(valor)}
                 />
                 <View style={estilos.botoes}>
-                    <Button title='Entre' onPress={login} color="green" />
-                </View>
-                <View style={estilos.botoes}>
-                    <Button title='Recuperar Senha' onPress={recuperaSenha} color="green" />
+                <Button disabled={loading} title='Entre' onPress={login } color="green" /> 
+             
+             {
+                loading &&  <ActivityIndicator/>
+               
+             }
+             
+                <Button disabled={loading} title='Recuperar Senha' onPress={recuperaSenha} color="green" />
                 </View>
             </View>
         </View>
