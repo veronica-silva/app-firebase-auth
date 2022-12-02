@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { Alert, Button, StyleSheet, TextInput, View, ActivityIndicator } from 'react-native'
 import {auth} from "../firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {AreaLogada} from "./AreaLogada"
 
 const Cadastro = ({navigation}) => {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [nome, setNome] = useState("");
     const [loading, setLoading] = useState(false);
     
 
@@ -28,6 +29,11 @@ const Cadastro = ({navigation}) => {
         setLoading(true);
 
         createUserWithEmailAndPassword(auth, email, senha).then( () =>{
+
+            updateProfile(auth.currentUser, {
+                displayName: nome
+            })
+
             Alert.alert ("cadastradíssima", 
             "Vai entrar ou não?",
 
@@ -72,6 +78,11 @@ const Cadastro = ({navigation}) => {
     return (
         <View style={estilos.container}>
             <View style={estilos.formulario}>
+            <TextInput
+                    placeholder='Nome'
+                    style={estilos.input}
+                    onChangeText={valor => setNome(valor)}
+                />
                 <TextInput
                     placeholder='E-mail'
                     style={estilos.input}
