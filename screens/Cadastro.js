@@ -8,6 +8,7 @@ const Cadastro = ({navigation}) => {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [loading, setLoading] = useState(false);
     
 
     const logada = () => {
@@ -23,6 +24,9 @@ const Cadastro = ({navigation}) => {
         if (!email || !senha) {
             Alert.alert("Se liga, hein!", "preencha todos os campos, animal")
         }
+
+        setLoading(true);
+
         createUserWithEmailAndPassword(auth, email, senha).then( () =>{
             Alert.alert ("cadastradíssima", 
             "Vai entrar ou não?",
@@ -60,6 +64,8 @@ const Cadastro = ({navigation}) => {
                     break;
             }
             Alert.alert("Atenção", mensagem)
+        }).finally(() =>{
+            setLoading(false)
         });
     };
 
@@ -79,7 +85,8 @@ const Cadastro = ({navigation}) => {
                     onChangeText={valor => setSenha(valor)}
                 />
                 <View style={estilos.botoes}>
-                    <Button onPress={cadastrar} title='Cadastre-se' color="blue" />
+                    <Button  disabled={loading} onPress={cadastrar} title='Cadastre-se' color="blue" />
+                    {loading && <ActivityIndicator/>}
                 </View>
 
             </View>
