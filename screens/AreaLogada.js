@@ -1,13 +1,20 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Button, StyleSheet, Text, View } from 'react-native'
 import { signOut } from 'firebase/auth';
 import {auth} from "../firebaseConfig"
+import { useState } from 'react';
 
 
 const AreaLogada = ({navigation}) => {
+    const [loading, setLoading] = useState(false)
 
     const logout = ()=>{
+        setLoading(true)
         signOut(auth).then( ()=>{
             navigation.replace("Inicial")
+        }).catch((error)=>{
+            console.log(eror);
+        }).finally(()=>{
+            setLoading(false)
         })
     }
 
@@ -15,8 +22,9 @@ const AreaLogada = ({navigation}) => {
         <View style={estilos.container}>
             <View style={estilos.topo}>
                 <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
-                <Button title='Logout' onPress={logout} color="#D35400" />
+                <Button disabled={loading}  title='Logout' onPress={logout} color="#D35400" />
             </View>
+            {loading && <ActivityIndicator/>}
             <View style={estilos.geral}>
                 <Text>Você está na área logada.</Text>
             </View>
