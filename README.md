@@ -8,6 +8,10 @@
 
 **Firebase:**
 
--   Site oficial: https://firebase.google.com/
--   Documentação: https://firebase.google.com/docs
--   Autenticação: https://firebase.google.com/docs/auth/web/start
+- Site oficial: https://firebase.google.com/
+- Documentação: https://firebase.google.com/docs
+- Autenticação: https://firebase.google.com/docs/auth/web/start
+
+## para saber se estou logada no EAS
+
+eas whoami
