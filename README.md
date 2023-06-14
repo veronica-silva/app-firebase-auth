@@ -2,6 +2,9 @@
 
 ## Documentação
 
+### Utilização
+Para ser utilizado, o app depende do ExpoGo.
+
 **Expo - Using Firebase:** https://docs.expo.dev/guides/using-firebase/
 
 **React Native Firebase:** https://rnfirebase.io/
